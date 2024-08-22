@@ -20,6 +20,9 @@ This performs a compile where one of the header files has a total path length of
 main.cxx(1): fatal error C1083: Cannot open include file: 'header.hxx': No such file or directory
 ```
 
+Other references to same issue:
+- https://developercommunity.visualstudio.com/t/clexe-compiler-driver-cannot-handle-long-file-path/975889
+
 ### Issue 2
 ```
 test2.bat
@@ -34,6 +37,8 @@ cl : Command line error D8022 : cannot open 'extraordinarilylongdirectoryname1/e
 ### Issue 3
 This compiles a source file twice, in two separate subdirectories. All the deterministic command lines available are used.
 
+- More on these flags: https://github.com/bazelbuild/bazel/issues/9466
+
 #### Issue 3.1: /experimental:deterministic is experimental
 
 It comes with this warning, which is concerning for us to rely on in production:
@@ -46,11 +51,15 @@ support, and subject to breaking changes or removal without notice. See
 http://go.microsoft.com/fwlink/?LinkID=691081 for details.
 ```
 
-#### Issue3.2: /d1pathmap option is not documented
+#### Issue3.2: /d1trimfile option is not documented
 
 We require this option for deterministic builds, but it is not documented and therefore presumably is not supported.
 
-#### Issue3.3: pdb files are not deterministic
+#### Issue3.3: /Brepro option is not documented
+
+We require this option for deterministic builds, but it is not documented and therefore presumably is not supported.
+
+#### Issue3.4: pdb files are not deterministic
 
 ```
 test3.bat
